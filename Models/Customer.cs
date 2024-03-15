@@ -25,6 +25,7 @@ namespace OrderCraftPro.Models
             LastName = other.LastName;
             Phone = other.Phone;
             Address = other.Address;
+            Email = other.Email;
         }
     }
 }

@@ -79,15 +79,11 @@ else
 
     private async Task DeleteCustomer(Guid customerId)
     {
-        var response = await HttpClient.DeleteAsync($"api/customers/{customerId}");
-        if (response.IsSuccessStatusCode)
+        var customerToDelete = customers.FirstOrDefault(o => o.Id == customerId);
+        if (customerToDelete != null)
         {
-            customers.RemoveAll(c => c.Id == customerId);
-        }
-        else
-        {
-            // Handle error
-            // For example: Display a toast message
+            CustomerService.DeleteCustomer(customerId);
+            customers.Remove(customerToDelete);
         }
     }
 
