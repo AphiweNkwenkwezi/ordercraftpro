@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34322.80
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrderCraftPro", "OrderCraftPro.csproj", "{FFCFF2B9-6F14-4D15-BD08-B516A9D3C0F6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FFCFF2B9-6F14-4D15-BD08-B516A9D3C0F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FFCFF2B9-6F14-4D15-BD08-B516A9D3C0F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FFCFF2B9-6F14-4D15-BD08-B516A9D3C0F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FFCFF2B9-6F14-4D15-BD08-B516A9D3C0F6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DD2D2003-3B56-4032-B399-2706880CE160}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,152 @@
+﻿<!-- AddOrderModal.razor -->
+@using OrderCraftPro.Models
+@using OrderCraftPro.Services.Interfaces
+
+@inject IOrderService OrderService
+@inject ICustomerService CustomerService
+
+@if (IsVisible)
+{
+    <div class="modal-overlay">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal fade show" style="display: block;" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Add Order</h5>
+                            <button type="button" class="close-button" @onclick="CloseModal">
+                                <span aria-hidden="true" class="close-icon">&times;</span>
+                            </button>
+                        </div>
+                        <EditForm Model="@newOrder" OnValidSubmit="AddOrder">
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label for="addOrderName">Order Name</label>
+                                    <InputText class="form-control" id="addOrderName" @bind-Value="@newOrder.OrderNumber" />
+                                    <ValidationMessage For="@(() => newOrder.OrderNumber)" />
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="orderType">Order Type</label>
+                                    <div class="input-group">
+                                        <select class="form-control" id="orderType" @bind="@newOrder.TypeId">
+                                            <option selected value="">Select Order Type...</option>
+                                            @if (OrderTypes != null)
+                                            {
+                                                foreach (var type in OrderTypes)
+                                                {
+                                                    <option value="@type.Id">@type.TypeName</option>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <option value="" disabled>Loading...</option>
+                                            }
+                                        </select>
+                                        <div class="input-group-append">
+                                            <button class="btn btn-outline-secondary" type="button">
+                                                <i class="fas fa-chevron-down"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label for="orderStatus">Order Status</label>
+                                    <select class="form-control" id="orderStatus" @bind="@newOrder.StatusId">
+                                        @if (OrderStatuses != null)
+                                        {
+                                            foreach (var type in OrderStatuses)
+                                            {
+                                                <option value="@type.Id">@type.StatusName</option>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <option value="">Loading...</option>
+                                        }
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="orderPlaced">Order Placed</label>
+                                    <InputDate class="form-control" id="orderPlaced" @bind-Value="@newOrder.OrderPlaced" />
+                                    <ValidationMessage For="@(() => newOrder.OrderPlaced)" />
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="orderFulfilled">Order Fulfilled</label>
+                                    <InputDate class="form-control" id="orderFulfilled" @bind-Value="@newOrder.OrderFulfilled" />
+                                    <ValidationMessage For="@(() => newOrder.OrderFulfilled)" />
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="customerId">Customer</label>
+                                    <select class="form-control" id="customerId" @bind="@newOrder.CustomerId">
+                                        @if (Customers != null)
+                                        {
+                                            foreach (var customer in Customers)
+                                            {
+                                                <option value="@customer.Id">@customer.FirstName</option>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <option value="">Loading...</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" @onclick="CloseModal">Close</button>
+                                <button type="button" class="btn btn-success" @onclick="AddOrder">Save</button>
+                            </div>
+                        </EditForm>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+
+@code {
+    [Parameter]
+    public bool IsVisible { get; set; }
+
+    [Parameter]
+    public EventCallback<bool> IsVisibleChanged { get; set; }
+
+    [Parameter]
+    public IEnumerable<OrderType> OrderTypes { get; set; }
+    private List<OrderType> orderTypes;
+    [Parameter]
+    public IEnumerable<OrderStatus> OrderStatuses { get; set; }
+    private List<OrderStatus> orderStatuses;
+    [Parameter]
+    public IEnumerable<Customer> Customers { get; set; }
+    private List<Customer> customers;
+
+    private Order newOrder = new Order();
+
+    private async Task AddOrder()
+    {
+        await OrderService.AddOrderAsync(newOrder);
+        await IsVisibleChanged.InvokeAsync(false);
+    }
+
+    private void CloseModal()
+    {
+        IsVisible = false;
+        IsVisibleChanged.InvokeAsync(false);
+    }
+
+    protected override void OnParametersSet()
+    {
+        // Assign provided data to local variables
+        orderTypes = OrderTypes != null ? OrderTypes.ToList() : new List<OrderType>();
+        orderStatuses = OrderStatuses != null ? OrderStatuses.ToList() : new List<OrderStatus>();
+        customers = Customers != null ? Customers.ToList() : new List<Customer>();
+    }
+}

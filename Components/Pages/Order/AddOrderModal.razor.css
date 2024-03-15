@@ -1,0 +1,33 @@
+﻿.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(1px);
+    z-index: 999;
+}
+
+.modal {
+    z-index: 1000;
+}
+
+.modal-content {
+    margin-top: 200px;
+}
+
+.close-button {
+    border: 0.5px solid grey;
+    outline: none;
+    background: none;
+}
+
+.close-icon {
+    font-size: 28px;
+    font-weight: 100;
+}
+
+.form-group {
+    margin-bottom: 20px; /* Adjust as needed */
+}

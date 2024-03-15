@@ -1,0 +1,104 @@
+﻿@page "/users"
+
+@using Microsoft.JSInterop
+@using OrderCraftPro.Models
+@using OrderCraftPro.Services.Interfaces
+
+@inject ICustomerService CustomerService
+@inject HttpClient HttpClient
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JsRuntime
+
+<PageTitle>Users</PageTitle>
+
+<h1>Customers</h1>
+
+@if (customers == null)
+{
+    <p>Loading...</p>
+}
+else if (customers.Count == 0)
+{
+    <p>No customers found.</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Phone</th>
+                <th>Address</th>
+                <th>Email</th>
+                <th>Is Customer</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var customer in customers)
+            {
+                <tr>
+                    <td>@customer.FirstName</td>
+                    <td>@customer.LastName</td>
+                    <td>@customer.Phone</td>
+                    <td>@customer.Address</td>
+                    <td>@customer.Email</td>
+                    <td>
+                        <input type="checkbox" />
+                    </td>
+
+                    <td>
+                        <button class="btn btn-danger" @onclick="() => DeleteCustomer(customer.Id)">Delete</button>
+                        <button class="btn btn-primary" @onclick="() => EditCustomer(customer)">Edit</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<button class="btn btn-primary" @onclick="ShowAddCustomerModal">Add User</button>
+
+<AddCustomerModal IsVisible="showAddModal" IsVisibleChanged="@((bool isVisible) => showAddModal = isVisible)" />
+
+<EditCustomerModal  IsVisible="@showEditModal" 
+                    IsVisibleChanged="@((bool isVisible) => showEditModal = isVisible)" 
+                    EditedCustomer="editedCustomer" />
+
+@code {
+    private List<Customer> customers;
+    private bool showEditModal;
+    private bool showAddModal;
+    private Customer editedCustomer = new Customer();
+
+    protected override async Task OnInitializedAsync()
+    {
+        customers = await CustomerService.GetAllCustomersAsync();
+    }
+
+    private async Task DeleteCustomer(Guid customerId)
+    {
+        var response = await HttpClient.DeleteAsync($"api/customers/{customerId}");
+        if (response.IsSuccessStatusCode)
+        {
+            customers.RemoveAll(c => c.Id == customerId);
+        }
+        else
+        {
+            // Handle error
+            // For example: Display a toast message
+        }
+    }
+
+    private void EditCustomer(Customer customer)
+    {
+        editedCustomer = customer;
+        showEditModal = true;
+    }
+
+    private void ShowAddCustomerModal()
+    {
+        showAddModal = true;
+    }
+}
