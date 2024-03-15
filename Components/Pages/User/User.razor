@@ -1,5 +1,6 @@
 ﻿@page "/users"
 
+@using Microsoft.AspNetCore.SignalR.Client
 @using Microsoft.JSInterop
 @using OrderCraftPro.Models
 @using OrderCraftPro.Services.Interfaces
@@ -72,7 +73,25 @@ else
     private bool showAddModal;
     private Customer editedCustomer = new Customer();
 
+    private HubConnection hubConnection;
+
     protected override async Task OnInitializedAsync()
+    {
+        await LoadUsers();
+
+        hubConnection = new HubConnectionBuilder()
+        .WithUrl(NavigationManager.ToAbsoluteUri("/customerHub"))
+        .Build();
+
+        hubConnection.On("CustomerAdded", async () =>
+        {
+            await LoadUsers();
+        });
+
+        await hubConnection.StartAsync();
+    }
+
+    private async Task LoadUsers()
     {
         customers = await CustomerService.GetAllCustomersAsync();
     }

@@ -10,6 +10,7 @@ using OrderCraftPro.Repositories;
 using OrderCraftPro.Repositories.Interfaces;
 using OrderCraftPro.Services;
 using OrderCraftPro.Services.Interfaces;
+using OrderCraftPro.SignalR;
 
 public class Startup
 {
@@ -22,6 +23,8 @@ public class Startup
 
     public void ConfigureServices(IServiceCollection services)
     {
+        services.AddSignalR();
+
         services.AddRazorComponents()
                 .AddInteractiveServerComponents();
 
@@ -113,6 +116,8 @@ public class Startup
             endpoints.MapRazorComponents<App>()
                      .AddInteractiveServerRenderMode();
             endpoints.MapAdditionalIdentityEndpoints();
+
+            endpoints.MapHub<CustomerHub>("/customerHub");
         });
     }
 }

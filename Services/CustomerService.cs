@@ -29,7 +29,6 @@ namespace OrderCraftPro.Services
             }
             catch (Exception ex)
             {
-                // Handle any exceptions, log errors, etc.
                 throw; // Rethrow the exception or handle it accordingly
             }
         }

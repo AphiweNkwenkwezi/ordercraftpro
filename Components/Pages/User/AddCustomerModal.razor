@@ -70,7 +70,8 @@
     private async Task AddCustomer()
     {
         await CustomerService.AddCustomerAsync(newCustomer);
-        await IsVisibleChanged.InvokeAsync(false); // Close the modal
+        // await hubConnection.SendAsync("SendCustomerAddedNotification");
+        await IsVisibleChanged.InvokeAsync(false);
     }
 
     private void CloseModal()
