@@ -12,13 +12,10 @@ namespace OrderCraftPro.Models
         public string? Address { get; set; }
         public ICollection<Order> Orders { get; set; } = null!;
 
-        // Default constructor
         public Customer()
         {
-            // Default constructor
         }
 
-        // Copy constructor
         public Customer(Customer other)
         {
             FirstName = other.FirstName;

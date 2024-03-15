@@ -1,5 +1,4 @@
-﻿<!-- AddOrderModal.razor -->
-@using OrderCraftPro.Models
+﻿@using OrderCraftPro.Models
 @using OrderCraftPro.Services.Interfaces
 
 @inject IOrderService OrderService
@@ -144,7 +143,6 @@
 
     protected override void OnParametersSet()
     {
-        // Assign provided data to local variables
         orderTypes = OrderTypes != null ? OrderTypes.ToList() : new List<OrderType>();
         orderStatuses = OrderStatuses != null ? OrderStatuses.ToList() : new List<OrderStatus>();
         customers = Customers != null ? Customers.ToList() : new List<Customer>();

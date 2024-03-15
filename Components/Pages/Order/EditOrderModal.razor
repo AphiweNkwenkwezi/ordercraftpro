@@ -1,5 +1,128 @@
-﻿<h3>EditOrderModal</h3>
+﻿@using OrderCraftPro.Models
+@using OrderCraftPro.Services.Interfaces
+
+@inject IOrderService OrderService
+
+@if (IsVisible)
+{
+    <div class="modal-overlay">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal fade show" style="display: block;" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Edit User</h5>
+                            <button type="button" class="close-button" @onclick="CloseModal">
+                                <span aria-hidden="true" class="close-icon">&times;</span>
+                            </button>
+                        </div>
+                        <EditForm Model="@editedOrder" OnValidSubmit="SaveChanges">
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label for="orderNumber">Order Number</label>
+                                    <InputText class="form-control" id="orderNumber" @bind-Value="@editedOrder.OrderNumber" />
+                                    <ValidationMessage For="@(() => editedOrder.OrderNumber)" />
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="orderType">Order Type</label>
+                                    <select class="form-control" id="orderType" @bind="@editedOrder.TypeId">
+                                        <option selected value="">Select Order Type...</option>
+                                        @foreach (var type in OrderTypes)
+                                        {
+                                            <option value="@type.Id">@type.TypeName</option>
+                                        }
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="orderStatus">Order Status</label>
+                                    <select class="form-control" id="orderStatus" @bind="@editedOrder.StatusId">
+                                        <option selected value="">Select Order Status...</option>
+                                        @foreach (var status in OrderStatuses)
+                                        {
+                                            <option value="@status.Id">@status.StatusName</option>
+                                        }
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="orderPlaced">Order Placed</label>
+                                    <InputDate class="form-control" id="orderPlaced" @bind-Value="@editedOrder.OrderPlaced" />
+                                    <ValidationMessage For="@(() => editedOrder.OrderPlaced)" />
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="orderFulfilled">Order Fulfilled</label>
+                                    <InputDate class="form-control" id="orderFulfilled" @bind-Value="@editedOrder.OrderFulfilled" />
+                                    <ValidationMessage For="@(() => editedOrder.OrderFulfilled)" />
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="customerId">Customer</label>
+                                    <select class="form-control" id="customerId" @bind="@editedOrder.CustomerId">
+                                        <option selected value="">Select Customer...</option>
+                                        @foreach (var customer in Customers)
+                                        {
+                                            <option value="@customer.Id">@customer.FirstName</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" @onclick="CloseModal">Close</button>
+                                <button type="button" class="btn btn-success" @onclick="SaveChanges">Save</button>
+                            </div>
+                        </EditForm>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
 
 @code {
+    [Parameter]
+    public bool IsVisible { get; set; }
 
+    [Parameter]
+    public EventCallback<bool> IsVisibleChanged { get; set; }
+
+    [Parameter]
+    public IEnumerable<OrderType> OrderTypes { get; set; }
+    private List<OrderType> orderTypes;
+
+    [Parameter]
+    public IEnumerable<OrderStatus> OrderStatuses { get; set; }
+    private List<OrderStatus> orderStatuses;
+
+    [Parameter]
+    public IEnumerable<Customer> Customers { get; set; }
+    private List<Customer> customers;
+
+    [Parameter]
+    public Order EditedOrder { get; set; }
+
+    private Order editedOrder;
+
+    private async Task SaveChanges()
+    {
+        await OrderService.AddOrderAsync(editedOrder);
+        await CloseModal();
+    }
+
+    private async Task CloseModal()
+    {
+        IsVisible = false;
+        await IsVisibleChanged.InvokeAsync(false);
+    }
+
+    protected override void OnParametersSet()
+    {
+        orderTypes = OrderTypes != null ? OrderTypes.ToList() : new List<OrderType>();
+        orderStatuses = OrderStatuses != null ? OrderStatuses.ToList() : new List<OrderStatus>();
+        customers = Customers != null ? Customers.ToList() : new List<Customer>();
+
+        editedOrder = EditedOrder != null ? new Order(EditedOrder) : null;
+    }
 }

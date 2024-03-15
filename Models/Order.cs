@@ -1,7 +1,9 @@
 ﻿using Microsoft.Extensions.Logging.Abstractions;
+using System.Net;
 
 namespace OrderCraftPro.Models
 {
+
     public class Order
     {
         public Guid Id { get; set; } = Guid.NewGuid();
@@ -15,5 +17,22 @@ namespace OrderCraftPro.Models
         public Guid CustomerId { get; set; }
         public Customer Customer { get; set; } = null!;
         public ICollection<OrderLine> OrderLines { get; set; } = null!;
+
+        public Order()
+        {
+        }
+
+        public Order(Order order)
+        {
+            OrderNumber = order.OrderNumber;
+            OrderPlaced = order.OrderPlaced;
+            OrderFulfilled = order.OrderFulfilled;
+            TypeId = order.TypeId;
+            OrderType = order.OrderType;
+            StatusId = order.StatusId;
+            OrderStatus = order.OrderStatus;
+            CustomerId = order.CustomerId;
+            Customer = order.Customer;
+        }
     }
 }
