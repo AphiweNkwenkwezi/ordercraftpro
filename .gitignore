@@ -63,7 +63,6 @@ Thumbs.db
 *.pdb
 *.cshtml
 
-appsettings.json
 wwwroot/service-worker.js
 Views/Shared/_wpscripts.cshtml
 
