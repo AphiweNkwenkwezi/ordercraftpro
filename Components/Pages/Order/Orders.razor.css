@@ -1,0 +1,27 @@
+﻿.search-container {
+    display: flex;
+    width: 300px; /* Adjust the width as needed */
+}
+
+.search-input {
+    height: 40px;
+    flex: 1;
+    border: 1px solid #ccc; /* Add border for input field */
+    border-radius: 5px 0 0 5px; /* Add border radius for rounded corners */
+    padding: 0 10px; /* Add horizontal padding */
+}
+
+.search-button {
+    height: 40px;
+    background-color: #808080;
+    color: white;
+    border: none;
+    padding: 0 20px;
+    cursor: pointer;
+    border-radius: 0 5px 5px 0;
+    transition: background-color 0.3s ease;
+}
+
+    .search-button:hover {
+        background-color: #737373;
+    }

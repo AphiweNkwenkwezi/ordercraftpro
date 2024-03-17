@@ -63,8 +63,7 @@ namespace OrderCraftPro.Services
             }
             catch (ArgumentException ex)
             {
-                // Handle exception, log error, etc.
-                throw; // Re-throw exception to be handled by the caller
+                throw;
             }
         }
     }

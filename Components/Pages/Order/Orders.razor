@@ -14,8 +14,10 @@
 
 <h1>Orders</h1>
 
-<input type="text" @bind="searchText" placeholder="Search by Order Number" />
-<button @onclick="SearchOrders">Search</button>
+<div class="search-container">
+    <input type="text" class="search-input" @bind="searchText" placeholder="Search by Order Number" />
+    <button class="search-button" @onclick="SearchOrders">Search</button>
+</div>
 
 @if (orders != null && orders.Any())
 {
