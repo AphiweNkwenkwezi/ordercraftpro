@@ -29,7 +29,7 @@ namespace OrderCraftPro.Services
             }
             catch (Exception ex)
             {
-                throw; // Rethrow the exception or handle it accordingly
+                throw new Exception(ex.Message);
             }
         }
 

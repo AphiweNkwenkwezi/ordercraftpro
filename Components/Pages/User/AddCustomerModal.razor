@@ -2,6 +2,7 @@
 @using OrderCraftPro.Services.Interfaces
 
 @inject ICustomerService CustomerService
+@inject HttpClient httpClient
 
 @if (IsVisible)
 {
@@ -67,10 +68,27 @@
 
     private Customer newCustomer = new Customer();
 
-    private async Task AddCustomer()
+    private async Task AddCustomer2()
     {
         await CustomerService.AddCustomerAsync(newCustomer);
         // await hubConnection.SendAsync("SendCustomerAddedNotification");
+        await IsVisibleChanged.InvokeAsync(false);
+    }
+
+    private async Task AddCustomer()
+    {
+        HttpResponseMessage response = await httpClient.PostAsJsonAsync("api/customers", newCustomer);
+
+        if (response.IsSuccessStatusCode)
+        {
+            // Customer added successfully
+            // You can perform further actions here
+        }
+        else
+        {
+            // Handle error scenario
+        }
+
         await IsVisibleChanged.InvokeAsync(false);
     }
 

@@ -5,7 +5,7 @@ using OrderCraftPro.Services.Interfaces;
 namespace OrderCraftPro.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/orders")]
     public class OrderController : Controller
     {
         private readonly IOrderService _orderService;

@@ -6,7 +6,7 @@ using OrderCraftPro.Services.Interfaces;
 namespace OrderCraftPro.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/customers")]
     public class CustomerController : ControllerBase
     {
         private readonly ICustomerService _customerService;

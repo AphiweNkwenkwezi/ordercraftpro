@@ -14,8 +14,8 @@
 
 <h1>Orders</h1>
 
-
 <input type="text" @bind="searchText" placeholder="Search by Order Number" />
+<button @onclick="SearchOrders">Search</button>
 
 @if (orders != null && orders.Any())
 {
@@ -123,7 +123,6 @@ else
         orders = await OrderService.GetOrdersAsync();
 
     }
-
     private void DeleteOrder(Guid orderId)
     {
         var orderToDelete = orders.FirstOrDefault(o => o.Id == orderId);
@@ -140,5 +139,9 @@ else
     {
         editedOrder = order;
         showEditModal = true;        
+    }
+    private async Task SearchOrders()
+    {
+        orders = await OrderService.SearchOrdersAsync(searchText);
     }
 }
