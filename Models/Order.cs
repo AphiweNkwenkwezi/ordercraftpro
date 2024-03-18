@@ -6,7 +6,7 @@ namespace OrderCraftPro.Models
 
     public class Order
     {
-        public Guid Id { get; set; } = Guid.NewGuid();
+        public Guid Id { get; set; }
         public string OrderNumber { get; set; } = null!;
         public DateTime OrderPlaced { get; set; }
         public DateTime? OrderFulfilled { get; set; }

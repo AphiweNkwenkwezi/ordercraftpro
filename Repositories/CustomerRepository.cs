@@ -20,7 +20,6 @@ namespace OrderCraftPro.Repositories
         }
         public async Task AddCustomerAsync(Customer customer)
         {
-            // Add any additional logic here if needed
             await _context.Customers.AddAsync(customer);
             await _context.SaveChangesAsync();
         }
@@ -42,24 +41,20 @@ namespace OrderCraftPro.Repositories
         {
             return _context.Customers.FirstOrDefault(c => c.Id == id);
         }
-
         public List<Customer> GetAllCustomers()
         {
             return _context.Customers.ToList();
         }
-
         public void CreateCustomer(Customer customer)
         {
             _context.Customers.Add(customer);
             _context.SaveChanges();
         }
-
         public void UpdateCustomer(Customer customer)
         {
             _context.Customers.Update(customer);
             _context.SaveChanges();
         }
-
         public void DeleteCustomer(Guid id)
         {
             var customer = _context.Customers.Find(id);

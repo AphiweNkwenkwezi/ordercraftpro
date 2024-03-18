@@ -66,7 +66,6 @@
 
     [Parameter]
     public Customer EditedCustomer { get; set; }
-
     private Customer editedCustomer;
 
     private async Task SaveEditedCustomer()
@@ -81,6 +80,6 @@
     }
     protected override void OnParametersSet()
     {
-        editedCustomer = EditedCustomer != null ? new Customer(EditedCustomer) : null;
+        editedCustomer = EditedCustomer ?? null;
     }
 }

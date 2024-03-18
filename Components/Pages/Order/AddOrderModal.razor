@@ -167,7 +167,10 @@
     public IEnumerable<Customer> Customers { get; set; }
     private List<Customer> customers;
 
-    private Order newOrder = new Order();
+    private Order newOrder = new Order()
+    {
+        OrderPlaced = DateTime.Today
+    };
 
     private async Task AddOrder()
     {

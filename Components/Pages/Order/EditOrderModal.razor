@@ -122,7 +122,7 @@
 
     private async Task SaveChanges()
     {
-        await OrderService.AddOrderAsync(editedOrder);
+        OrderService.UpdateOrder(editedOrder);
         await CloseModal();
     }
 
@@ -138,6 +138,6 @@
         orderStatuses = OrderStatuses != null ? OrderStatuses.ToList() : new List<OrderStatus>();
         customers = Customers != null ? Customers.ToList() : new List<Customer>();
 
-        editedOrder = EditedOrder != null ? new Order(EditedOrder) : null;
+        editedOrder = EditedOrder ?? null;
     }
 }
