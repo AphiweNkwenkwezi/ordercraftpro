@@ -17,7 +17,7 @@
                                 <span aria-hidden="true" class="close-icon">&times;</span>
                             </button>
                         </div>
-                        <EditForm Model="@newOrder" OnValidSubmit="AddOrder">
+                        <EditForm Model="@newOrder" OnValidSubmit="AddOrder" id="addOrderModal">
                             <div class="modal-body">
                                 <div class="form-group">
                                     <label for="addOrderName">Order Name</label>
@@ -27,9 +27,9 @@
 
                                 <div class="form-group">
                                     <label for="orderType">Order Type</label>
-                                    <div class="input-group">
-                                        <select class="form-control" id="orderType" @bind="@newOrder.TypeId">
-                                            <option selected value="">Select Order Type...</option>
+                                    <div class="dropdown">
+                                        <select class="form-control dropdown-toggle" id="orderType" @bind="@newOrder.TypeId">
+                                            <option selected disabled value="">Select Order Type...</option>
                                             @if (OrderTypes != null)
                                             {
                                                 foreach (var type in OrderTypes)
@@ -42,10 +42,8 @@
                                                 <option value="" disabled>Loading...</option>
                                             }
                                         </select>
-                                        <div class="input-group-append">
-                                            <button class="btn btn-outline-secondary" type="button">
-                                                <i class="fas fa-chevron-down"></i>
-                                            </button>
+                                        <div class="dropdown-toggle-icon">
+                                            <i class="fas fa-chevron-down"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -53,19 +51,25 @@
 
                                 <div class="form-group">
                                     <label for="orderStatus">Order Status</label>
-                                    <select class="form-control" id="orderStatus" @bind="@newOrder.StatusId">
-                                        @if (OrderStatuses != null)
-                                        {
-                                            foreach (var type in OrderStatuses)
+                                    <div class="dropdown">
+                                        <select class="form-control dropdown-toggle" id="orderStatusSelect" @bind="@newOrder.StatusId">
+                                            <option value="" disabled selected>Select Order Status...</option>
+                                            @if (OrderStatuses != null)
                                             {
-                                                <option value="@type.Id">@type.StatusName</option>
+                                                foreach (var type in OrderStatuses)
+                                                {
+                                                    <option value="@type.Id">@type.StatusName</option>
+                                                }
                                             }
-                                        }
-                                        else
-                                        {
-                                            <option value="">Loading...</option>
-                                        }
-                                    </select>
+                                            else
+                                            {
+                                                <option value="">Loading...</option>
+                                            }
+                                        </select>
+                                        <div class="dropdown-toggle-icon">
+                                            <i class="fas fa-chevron-down"></i>
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <div class="form-group">
@@ -82,19 +86,25 @@
 
                                 <div class="form-group">
                                     <label for="customerId">Customer</label>
-                                    <select class="form-control" id="customerId" @bind="@newOrder.CustomerId">
-                                        @if (Customers != null)
-                                        {
-                                            foreach (var customer in Customers)
+                                    <div class="dropdown">
+                                        <select class="form-control" id="customerId" @bind="@newOrder.CustomerId">
+                                            <option value="" disabled selected>Select Order Customer...</option>
+                                            @if (Customers != null)
                                             {
-                                                <option value="@customer.Id">@customer.FirstName</option>
+                                                foreach (var customer in Customers)
+                                                {
+                                                    <option value="@customer.Id">@customer.FirstName</option>
+                                                }
                                             }
-                                        }
-                                        else
-                                        {
-                                            <option value="">Loading...</option>
-                                        }
-                                    </select>
+                                            else
+                                            {
+                                                <option value="">Loading...</option>
+                                            }
+                                        </select>
+                                        <div class="dropdown-toggle-icon">
+                                            <i class="fas fa-chevron-down"></i>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="modal-footer">
@@ -107,8 +117,38 @@
             </div>
         </div>
     </div>
-
 }
+
+@* <script>
+    // Wait for the DOM content to be fully loaded
+    document.addEventListener("DOMContentLoaded", function () {
+        // Check if the modal element exists
+        var modal = document.getElementById("addOrderModal");
+        if (modal) {
+            // If the modal exists, attach the event listener
+            modal.addEventListener("shown.bs.modal", function () {
+                console.log("Modal shown event triggered");
+                addPlaceholderToOrderStatus();
+            });
+        } else {
+            console.log("Modal element not found");
+        }
+    });
+
+    function addPlaceholderToOrderStatus() {
+        var orderStatusSelect = document.getElementById("orderStatusSelect");
+        if (orderStatusSelect) {
+            var placeholderOption = document.createElement("option");
+            placeholderOption.text = "Select Order Status...";
+            placeholderOption.disabled = true;
+            placeholderOption.selected = true;
+            orderStatusSelect.add(placeholderOption);
+            orderStatusSelect.focus(); // Focus the select element
+        } else {
+            console.log("Order status element not found");
+        }
+    }
+</script> *@
 
 @code {
     [Parameter]

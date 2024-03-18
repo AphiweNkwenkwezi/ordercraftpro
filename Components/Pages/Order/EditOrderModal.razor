@@ -26,24 +26,34 @@
 
                                 <div class="form-group">
                                     <label for="orderType">Order Type</label>
-                                    <select class="form-control" id="orderType" @bind="@editedOrder.TypeId">
-                                        <option selected value="">Select Order Type...</option>
-                                        @foreach (var type in OrderTypes)
-                                        {
-                                            <option value="@type.Id">@type.TypeName</option>
-                                        }
-                                    </select>
+                                    <div class="dropdown">
+                                        <select class="form-control " id="orderType" @bind="@editedOrder.TypeId" placeholder="Select Order Type...">
+                                            <option selected disabled value="">Select Order Type...</option>
+                                            @foreach (var type in OrderTypes)
+                                            {
+                                                <option value="@type.Id">@type.TypeName</option>
+                                            }
+                                        </select>
+                                        <div class="dropdown-toggle-icon">
+                                            <i class="fas fa-chevron-down"></i>
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="orderStatus">Order Status</label>
-                                    <select class="form-control" id="orderStatus" @bind="@editedOrder.StatusId">
-                                        <option selected value="">Select Order Status...</option>
-                                        @foreach (var status in OrderStatuses)
-                                        {
-                                            <option value="@status.Id">@status.StatusName</option>
-                                        }
-                                    </select>
+                                    <div class="dropdown">
+                                        <select class="form-control" id="orderStatus" @bind="@editedOrder.StatusId">
+                                            <option selected disabled value="">Select Order Status...</option>
+                                            @foreach (var status in OrderStatuses)
+                                            {
+                                                <option value="@status.Id">@status.StatusName</option>
+                                            }
+                                        </select>
+                                        <div class="dropdown-toggle-icon">
+                                            <i class="fas fa-chevron-down"></i>
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <div class="form-group">
@@ -60,13 +70,18 @@
 
                                 <div class="form-group">
                                     <label for="customerId">Customer</label>
-                                    <select class="form-control" id="customerId" @bind="@editedOrder.CustomerId">
-                                        <option selected value="">Select Customer...</option>
-                                        @foreach (var customer in Customers)
-                                        {
-                                            <option value="@customer.Id">@customer.FirstName</option>
-                                        }
-                                    </select>
+                                    <div class="dropdown">
+                                        <select class="form-control" id="customerId" @bind="@editedOrder.CustomerId">
+                                            <option selected disabled value="">Select Customer...</option>
+                                            @foreach (var customer in Customers)
+                                            {
+                                                <option value="@customer.Id">@customer.FirstName</option>
+                                            }
+                                        </select>
+                                        <div class="dropdown-toggle-icon">
+                                            <i class="fas fa-chevron-down"></i>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="modal-footer">

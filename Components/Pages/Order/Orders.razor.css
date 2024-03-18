@@ -22,6 +22,30 @@
     transition: background-color 0.3s ease;
 }
 
-    .search-button:hover {
-        background-color: #737373;
-    }
+.search-button:hover {
+    background-color: #737373;
+}
+
+.order-container {
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+}
+
+.order-header {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 10px;
+}
+
+.order-header-item {
+    flex: 1;
+    margin-right: 10px;
+}
+
+.order-lines {
+    padding: 10px;
+}
+
+.order-actions {
+    padding: 10px;
+}

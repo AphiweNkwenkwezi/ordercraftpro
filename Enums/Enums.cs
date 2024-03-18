@@ -2,17 +2,17 @@
 {
     public enum eOrderType
     {
-        Staff,
-        Normal,
-        Perishable,
-        Mechanical
+        Staff = 1,
+        Normal = 2,
+        Perishable = 3,
+        Mechanical = 4
     }
 
     public enum eOrderStatus
     {
-        New,
-        Processing,
-        Completed
+        New = 1,
+        Processing = 2,
+        Completed = 3
     }
 
     public enum eProductType

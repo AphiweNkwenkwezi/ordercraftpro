@@ -44,7 +44,7 @@
                     <td>@(order.OrderFulfilled.HasValue ? order.OrderFulfilled.Value.ToShortDateString() : "Not Fulfilled")</td>
                     <td>
                         <button class="btn btn-primary btn-sm" @onclick="() => EditOrder(order)">Edit</button>
-                        <button class="btn btn-danger btn-sm" @onclick="() => DeleteOrder(order.Id)">Remove</button>
+                        <button class="btn btn-danger btn-sm" @onclick="() => DeleteOrder(order.Id)">Delete</button>
                     </td>
                 </tr>
                 @if (expandedOrderId == order.Id)
@@ -88,7 +88,7 @@ else
     <p>No orders found.</p>
 }
 
-<button class="btn btn-primary" @onclick="ShowAddOrderModal">Add Order</button>
+<button id="addOrderButton" class="btn btn-primary" @onclick="ShowAddOrderModal">Add Order</button>
 
 <AddOrderModal IsVisible="showAddModal"
                IsVisibleChanged="@((bool isVisible) => showAddModal = isVisible)"
