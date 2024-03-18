@@ -30,6 +30,8 @@
                 <th>Customer</th>
                 <th>Order Placed</th>
                 <th>Order Fulfilled</th>
+                <th>Actions</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -46,11 +48,14 @@
                         <button class="btn btn-primary btn-sm" @onclick="() => EditOrder(order)">Edit</button>
                         <button class="btn btn-danger btn-sm" @onclick="() => DeleteOrder(order.Id)">Delete</button>
                     </td>
+                    <td>
+                        <button class="btn btn-info btn-sm" @onclick="() => ToggleOrderLines(order.Id)">Show/Hide Lines</button>
+                    </td>
                 </tr>
                 @if (expandedOrderId == order.Id)
                 {
                     <tr>
-                        <td colspan="6">
+                        <td colspan="7">
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>
@@ -60,6 +65,7 @@
                                         <th>Product Cost Price</th>
                                         <th>Product Sales Price</th>
                                         <th>Quantity</th>
+                                        <th>Actions</th> <!-- New column for actions -->
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -72,6 +78,10 @@
                                             <td>@line.Product.Price</td>
                                             <td>@line.SalesPrice</td>
                                             <td>@line.Quantity</td>
+                                            <td>
+                                                <button class="btn btn-primary btn-sm" @onclick="() => EditOrderLine(line)">Edit</button>
+                                                <button class="btn btn-danger btn-sm" @onclick="() => DeleteOrderLine(order.Id, line.LineNumber)">Delete</button>
+                                            </td>
                                         </tr>
                                     }
                                 </tbody>
@@ -87,6 +97,7 @@ else
 {
     <p>No orders found.</p>
 }
+
 
 <button id="addOrderButton" class="btn btn-primary" @onclick="ShowAddOrderModal">Add Order</button>
 
@@ -117,6 +128,21 @@ else
 
     private Order editedOrder = new Order();
 
+    private void ToggleOrderLines(Guid orderId)
+    {
+        if (expandedOrderId == orderId)
+        {
+            expandedOrderId = null;
+        }
+        else
+        {
+            expandedOrderId = orderId;
+        }
+    }
+    private bool IsOrderLinesExpanded(Guid orderId)
+    {
+        return expandedOrderId == orderId;
+    }
     protected override async Task OnInitializedAsync()
     {
         customers = await CustomerService.GetAllCustomersAsync();
@@ -145,5 +171,16 @@ else
     private async Task SearchOrders()
     {
         orders = await OrderService.SearchOrdersAsync(searchText);
+    }
+
+    private void EditOrderLine(OrderLine line)
+    {
+        // editedOrder = order;
+        // showEditModal = true;
+    }
+    private void DeleteOrderLine(Guid orderId, int lineNumber)
+    {
+        // editedOrder = order;
+        // showEditModal = true;
     }
 }

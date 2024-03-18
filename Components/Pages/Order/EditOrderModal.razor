@@ -16,7 +16,7 @@
                                 <span aria-hidden="true" class="close-icon">&times;</span>
                             </button>
                         </div>
-                        <EditForm Model="@editedOrder" OnValidSubmit="SaveChanges">
+                        <EditForm Model="@editedOrder" OnValidSubmit="SaveEditOrderChanges">
                             <div class="modal-body">
                                 <div class="form-group">
                                     <label for="orderNumber">Order Number</label>
@@ -86,7 +86,7 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" @onclick="CloseModal">Close</button>
-                                <button type="button" class="btn btn-success" @onclick="SaveChanges">Save</button>
+                                <button type="button" class="btn btn-success" @onclick="SaveEditOrderChanges">Save</button>
                             </div>
                         </EditForm>
                     </div>
@@ -117,21 +117,18 @@
 
     [Parameter]
     public Order EditedOrder { get; set; }
-
     private Order editedOrder;
 
-    private async Task SaveChanges()
+    private async Task SaveEditOrderChanges()
     {
         OrderService.UpdateOrder(editedOrder);
         await CloseModal();
     }
-
     private async Task CloseModal()
     {
         IsVisible = false;
         await IsVisibleChanged.InvokeAsync(false);
     }
-
     protected override void OnParametersSet()
     {
         orderTypes = OrderTypes != null ? OrderTypes.ToList() : new List<OrderType>();

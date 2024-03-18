@@ -177,13 +177,11 @@
         await OrderService.AddOrderAsync(newOrder);
         await IsVisibleChanged.InvokeAsync(false);
     }
-
     private void CloseModal()
     {
         IsVisible = false;
         IsVisibleChanged.InvokeAsync(false);
     }
-
     protected override void OnParametersSet()
     {
         orderTypes = OrderTypes != null ? OrderTypes.ToList() : new List<OrderType>();

@@ -67,14 +67,12 @@
 
     private Customer newCustomer = new Customer();
 
-    private async Task AddCustomer2()
+    private async Task AddCustomer()
     {
         await CustomerService.AddCustomerAsync(newCustomer);
-        // await hubConnection.SendAsync("SendCustomerAddedNotification");
         await IsVisibleChanged.InvokeAsync(false);
     }
-
-    private async Task AddCustomer()
+    private async Task AddCustomer2()
     {
         HttpResponseMessage response = await httpClient.PostAsJsonAsync("api/customers", newCustomer);
 
@@ -90,7 +88,6 @@
 
         await IsVisibleChanged.InvokeAsync(false);
     }
-
     private void CloseModal()
     {
         IsVisible = false;
